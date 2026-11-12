@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador Metodológico de Tesis - Administración UNASAM</title>
+  <style>
+    :root {
+      --bg-page: #f7f5fb;
+      --bg-card: #ffffff;
+      --text-main: #2d3142;
+      --text-muted: #5c637a;
+      --border-soft: #e2e6f3;
+
+      /* Paleta Pastel Diferenciada */
+      --pastel-blue-bg: #eef5ff;
+      --pastel-blue-border: #bfd8ff;
+      --pastel-blue-accent: #3b7ddd;
+
+      --pastel-mint-bg: #ebfaf3;
+      --pastel-mint-border: #b5ebd2;
+      --pastel-mint-accent: #229965;
+
+      --pastel-lavender-bg: #f4efff;
+      --pastel-lavender-border: #d5c6ff;
+      --pastel-lavender-accent: #6f42c1;
+
+      --pastel-rose-bg: #ffeff4;
+      --pastel-rose-border: #ffc2d4;
+      --pastel-rose-accent: #c93b6b;
+
+      --pastel-amber-bg: #fff9e6;
+      --pastel-amber-border: #ffe599;
+      --pastel-amber-accent: #b58105;
+
+      --pastel-cyan-bg: #eaf9fc;
+      --pastel-cyan-border: #b3e8f2;
+      --pastel-cyan-accent: #17869c;
+
+      --pastel-indigo-bg: #eef0ff;
+      --pastel-indigo-border: #c5cbff;
+      --pastel-indigo-accent: #4c5bd4;
+
+      --shadow-sm: 0 4px 12px rgba(45, 49, 66, 0.05);
+      --shadow-md: 0 10px 25px rgba(45, 49, 66, 0.08);
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #f3f7ff 0%, #f9f3ff 50%, #f2fbf7 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 50px;
+    }
+
+    header {
+      background: linear-gradient(120deg, #dbeafe 0%, #ede9fe 50%, #d1fae5 100%);
+      border-bottom: 2px solid #c7d2fe;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-unasam {
+      display: inline-block;
+      background-color: #ffffff;
+      color: #4338ca;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 999px;
+      border: 1px solid #c7d2fe;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      color: #1e293b;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      color: #475569;
+      font-size: 0.98rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 28px auto 0;
+      padding: 0 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    .form-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-soft);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px dashed #e2e8f0;
+    }
+
+    .section-header h2 {
+      font-size: 1.25rem;
+      color: #1e293b;
+    }
+
+    .btn-preset {
+      background-color: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-preset:hover {
+      background-color: #e2e8f0;
+    }
+
+    .variables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .var-box {
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .var-box.var1 {
+      background-color: var(--pastel-blue-bg);
+      border: 2px solid var(--pastel-blue-border);
+    }
+
+    .var-box.var2 {
+      background-color: var(--pastel-mint-bg);
+      border: 2px solid var(--pastel-mint-border);
+    }
+
+    .var-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .var1 .var-title { color: var(--pastel-blue-accent); }
+    .var2 .var-title { color: var(--pastel-mint-accent); }
+
+    label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px 13px;
+      border-radius: 9px;
+      border: 1.5px solid #cbd5e1;
+      background-color: #ffffff;
+      font-size: 0.94rem;
+      color: #1e293b;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    .dims-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      margin-bottom: 10px;
+    }
+
+    .dims-header span {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .btn-add-dim {
+      border: none;
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    .var1 .btn-add-dim { background-color: var(--pastel-blue-accent); }
+    .var2 .btn-add-dim { background-color: var(--pastel-mint-accent); }
+    .btn-add-dim:hover { opacity: 0.9; }
+
+    .dim-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .dim-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dim-badge {
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 7px 9px;
+      border-radius: 7px;
+      background: #ffffff;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn-remove-dim {
+      background-color: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      width: 36px;
+      height: 38px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .btn-remove-dim:hover:not(:disabled) {
+      background-color: #fecaca;
+    }
+
+    .btn-remove-dim:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      background-color: var(--pastel-lavender-bg);
+      border: 2px solid var(--pastel-lavender-border);
+      padding: 18px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+    }
+
+    .action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      color: #ffffff;
+      border: none;
+      padding: 13px 28px;
+      border-radius: 11px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-clear {
+      background-color: #ffffff;
+      color: #475569;
+      border: 1.5px solid #cbd5e1;
+      padding: 13px 20px;
+      border-radius: 11px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    #resultsSection {
+      display: none;
+    }
+
+    .toolbar-results {
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toolbar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-tool {
+      border: none;
+      padding: 9px 15px;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-copy-all {
+      background-color: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
+
+    .btn-copy-title {
+      background-color: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+    }
+
+    .btn-word {
+      background-color: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+
+    .view-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tab-btn {
+      padding: 9px 18px;
+      border-radius: 9px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #4f46e5;
+    }
+
+    .cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .res-card {
+      border-radius: 15px;
+      padding: 20px 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .res-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .res-label {
+      font-weight: 800;
+      font-size: 0.98rem;
+      text-transform: uppercase;
+    }
+
+    .btn-mini-copy {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      padding: 5px 11px;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #334155;
+    }
+
+    .res-content {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #1e293b;
+    }
+
+    .res-content ol {
+      padding-left: 22px;
+    }
+
+    .res-content li {
+      margin-bottom: 8px;
+    }
+
+    .sub-group-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin: 10px 0 6px;
+      color: #475569;
+    }
+
+    .sub-group-title:first-child {
+      margin-top: 0;
+    }
+
+    .card-A { background: var(--pastel-amber-bg); border: 2px solid var(--pastel-amber-border); }
+    .card-A .res-label { color: var(--pastel-amber-accent); }
+
+    .card-B { background: var(--pastel-blue-bg); border: 2px solid var(--pastel-blue-border); }
+    .card-B .res-label { color: var(--pastel-blue-accent); }
+
+    .card-C { background: var(--pastel-cyan-bg); border: 2px solid var(--pastel-cyan-border); }
+    .card-C .res-label { color: var(--pastel-cyan-accent); }
+
+    .card-D { background: var(--pastel-lavender-bg); border: 2px solid var(--pastel-lavender-border); }
+    .card-D .res-label { color: var(--pastel-lavender-accent); }
+
+    .card-E { background: var(--pastel-indigo-bg); border: 2px solid var(--pastel-indigo-border); }
+    .card-E .res-label { color: var(--pastel-indigo-accent); }
+
+    .card-F { background: var(--pastel-mint-bg); border: 2px solid var(--pastel-mint-border); }
+    .card-F .res-label { color: var(--pastel-mint-accent); }
+
+    .card-G { background: var(--pastel-rose-bg); border: 2px solid var(--pastel-rose-border); }
+    .card-G .res-label { color: var(--pastel-rose-accent); }
+
+    .matrix-container {
+      display: none;
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      border: 2px solid #cbd5e1;
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+    table.matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 850px;
+    }
+
+    table.matrix-table th {
+      background: #eef2ff;
+      color: #312e81;
+      font-weight: 800;
+      padding: 12px;
+      border: 1px solid #c7d2fe;
+      text-align: left;
+    }
+
+    table.matrix-table td {
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      vertical-align: top;
+    }
+
+    table.matrix-table ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    table.matrix-table li {
+      margin-bottom: 6px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(15px);
+      transition: all 0.25s ease;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .error-msg {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge-unasam">UNASAM • Facultad de Administración y Turismo • Escuela Profesional de Administración</div>
+    <h1>Generador Metodológico de Tesis Correlacional</h1>
+    <p>Herramienta académica sin conexión para formular Título, Problemas, Objetivos, Hipótesis y Matriz de Consistencia conforme a los lineamientos de investigación de la UNASAM.</p>
+  </header>
+
+  <main class="container">
+    <section class="form-card">
+      <div class="section-header">
+        <h2>📋 1. Parámetros del Proyecto de Investigación</h2>
+        <button type="button" id="btnEjemplo" class="btn-preset">✨ Cargar ejemplo (Huaraz)</button>
+      </div>
+
+      <div id="errorBox" class="error-msg"></div>
+
+      <div id="tesisForm">
+        <div class="variables-grid">
+          <!-- VARIABLE 1 -->
+          <div class="var-box var1">
+            <div class="var-title">
+              <span>Variable 1 (X)</span>
+              <span style="font-size:0.78rem; font-weight:600;">Mín. 2 dimensiones</span>
+            </div>
+            <label for="var1Name">Nombre de la Variable 1:</label>
+            <input type="text" id="var1Name" placeholder="Ej.: Clima organizacional" />
+
+            <div class="dims-header">
+              <span>Dimensiones de Variable 1:</span>
+              <button type="button" id="btnAddVar1" class="btn-add-dim">+ Agregar dimensión</button>
+            </div>
+            <div id="var1Dims" class="dim-list"></div>
+          </div>
+
+          <!-- VARIABLE 2 -->
+          <div class="var-box var2">
+            <div class="var-title">
+              <span>Variable 2 (Y)</span>
+              <span style="font-size:0.78rem; font-weight:600;">Mín. 2 dimensiones</span>
+            </div>
+            <label for="var2Name">Nombre de la Variable 2:</label>
+            <input type="text" id="var2Name" placeholder="Ej.: Desempeño laboral" />
+
+            <div class="dims-header">
+              <span>Dimensiones de Variable 2:</span>
+              <button type="button" id="btnAddVar2" class="btn-add-dim">+ Agregar dimensión</button>
+            </div>
+            <div id="var2Dims" class="dim-list"></div>
+          </div>
+        </div>
+
+        <!-- DATOS DE CONTEXTO -->
+        <div class="context-grid">
+          <div>
+            <label for="lugarEstudio">3. Lugar o empresa de estudio:</label>
+            <input type="text" id="lugarEstudio" placeholder="Ej.: Municipalidad Provincial de Huaraz" />
+          </div>
+          <div>
+            <label for="anioEstudio">4. Año de estudio:</label>
+            <input type="number" id="anioEstudio" value="2026" min="2000" max="2099" />
+          </div>
+          <div>
+            <label for="tipoInvestigacion">5. Tipo / Diseño de investigación:</label>
+            <select id="tipoInvestigacion">
+              <option value="correlacional" selected>Correlacional (No experimental - Transversal)</option>
+            </select>
+          </div>
+          <div>
+            <label for="verboGeneral">Verbo en infinitivo (Obj. General):</label>
+            <select id="verboGeneral">
+              <option value="Determinar" selected>Determinar</option>
+              <option value="Analizar">Analizar</option>
+              <option value="Establecer">Establecer</option>
+            </select>
+          </div>
+          <div>
+            <label for="verboEspecifico">Verbo en infinitivo (Obj. Específicos):</label>
+            <select id="verboEspecifico">
+              <option value="Identificar" selected>Identificar</option>
+              <option value="Determinar">Determinar</option>
+              <option value="Analizar">Analizar</option>
+              <option value="Establecer">Establecer</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button type="button" id="btnGenerar" class="btn-primary">🚀 Generar Estructura Metodológica</button>
+          <button type="button" id="btnLimpiar" class="btn-clear">Limpiar campos</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section id="resultsSection">
+      <div class="toolbar-results">
+        <div>
+          <strong style="font-size:1.05rem; color:#1e293b;">✅ Resultados Generados (Normativa UNASAM)</strong>
+          <div style="font-size:0.84rem; color:#64748b;">Puedes copiar secciones individuales, todo el esquema o exportar a Microsoft Word.</div>
+        </div>
+        <div class="toolbar-buttons">
+          <button type="button" id="btnCopiarTitulo" class="btn-tool btn-copy-title">📌 Copiar solo Título</button>
+          <button type="button" id="btnCopiarTodo" class="btn-tool btn-copy-all">📋 Copiar resultados</button>
+          <button type="button" id="btnDescargarWord" class="btn-tool btn-word">📄 Descargar en Word (.doc)</button>
+        </div>
+      </div>
+
+      <div class="view-tabs">
+        <button type="button" id="tabCards" class="tab-btn active">Vista por Bloques (A - G)</button>
+        <button type="button" id="tabMatrix" class="tab-btn">Vista Matriz de Consistencia</button>
+      </div>
+
+      <!-- VISTA POR TARJETAS -->
+      <div id="cardsView" class="cards-stack">
+        <div class="res-card card-A">
+          <div class="res-card-header">
+            <span class="res-label">A) Título de Investigación</span>
+            <button type="button" class="btn-mini-copy" data-copy="outTitulo">Copiar Título</button>
+          </div>
+          <div class="res-content" id="outTitulo" style="font-weight:700; font-size:1.08rem;"></div>
+        </div>
+
+        <div class="res-card card-B">
+          <div class="res-card-header">
+            <span class="res-label">B) Objetivo General</span>
+            <button type="button" class="btn-mini-copy" data-copy="outObjGen">Copiar</button>
+          </div>
+          <div class="res-content" id="outObjGen"></div>
+        </div>
+
+        <div class="res-card card-C">
+          <div class="res-card-header">
+            <span class="res-label">C) Objetivos Específicos</span>
+            <button type="button" class="btn-mini-copy" data-copy="outObjEsp">Copiar</button>
+          </div>
+          <div class="res-content" id="outObjEsp"></div>
+        </div>
+
+        <div class="res-card card-D">
+          <div class="res-card-header">
+            <span class="res-label">D) Pregunta General (Problema General)</span>
+            <button type="button" class="btn-mini-copy" data-copy="outPregGen">Copiar</button>
+          </div>
+          <div class="res-content" id="outPregGen"></div>
+        </div>
+
+        <div class="res-card card-E">
+          <div class="res-card-header">
+            <span class="res-label">E) Preguntas Específicas (Problemas Específicos)</span>
+            <button type="button" class="btn-mini-copy" data-copy="outPregEsp">Copiar</button>
+          </div>
+          <div class="res-content" id="outPregEsp"></div>
+        </div>
+
+        <div class="res-card card-F">
+          <div class="res-card-header">
+            <span class="res-label">F) Hipótesis General</span>
+            <button type="button" class="btn-mini-copy" data-copy="outHipGen">Copiar</button>
+          </div>
+          <div class="res-content" id="outHipGen"></div>
+        </div>
+
+        <div class="res-card card-G">
+          <div class="res-card-header">
+            <span class="res-label">G) Hipótesis Específicas</span>
+            <button type="button" class="btn-mini-copy" data-copy="outHipEsp">Copiar</button>
+          </div>
+          <div class="res-content" id="outHipEsp"></div>
+        </div>
+      </div>
+
+      <!-- VISTA MATRIZ DE CONSISTENCIA -->
+      <div id="matrixView" class="matrix-container">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <h3 style="color:#1e293b;">Matriz de Consistencia Metodológica</h3>
+          <button type="button" id="btnDescargarWordMatrix" class="btn-tool btn-word">📄 Exportar Matriz a Word</button>
+        </div>
+        <div id="matrixContent"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast">Copiado al portapapeles</div>
+
+  <script>
+    (function () {
+      let datosGenerados = null;
+
+      function crearFilaDimension(containerId, valorInicial) {
+        const container = document.getElementById(containerId);
+        const row = document.createElement('div');
+        row.className = 'dim-row';
+
+        const badge = document.createElement('span');
+        badge.className = 'dim-badge';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'dim-input';
+        input.placeholder = 'Escribe el nombre de la dimensión...';
+        input.value = valorInicial || '';
+
+        const btnDel = document.createElement('button');
+        btnDel.type = 'button';
+        btnDel.className = 'btn-remove-dim';
+        btnDel.title = 'Eliminar dimensión';
+        btnDel.textContent = '✕';
+        btnDel.addEventListener('click', function () {
+          if (container.querySelectorAll('.dim-row').length > 2) {
+            row.remove();
+            actualizarIndicesDimensiones(containerId);
+          }
+        });
+
+        row.appendChild(badge);
+        row.appendChild(input);
+        row.appendChild(btnDel);
+        container.appendChild(row);
+
+        actualizarIndicesDimensiones(containerId);
+        if (!valorInicial) {
+          input.focus();
+        }
+      }
+
+      function actualizarIndicesDimensiones(containerId) {
+        const container = document.getElementById(containerId);
+        const rows = container.querySelectorAll('.dim-row');
+        const prefijo = containerId === 'var1Dims' ? 'D1.' : 'D2.';
+        rows.forEach(function (row, index) {
+          const badge = row.querySelector('.dim-badge');
+          const btn = row.querySelector('.btn-remove-dim');
+          if (badge) badge.textContent = prefijo + (index + 1);
+          if (btn) btn.disabled = rows.length <= 2;
+        });
+      }
+
+      function inicializarDimensiones() {
+        const c1 = document.getElementById('var1Dims');
+        const c2 = document.getElementById('var2Dims');
+        c1.innerHTML = '';
+        c2.innerHTML = '';
+        crearFilaDimension('var1Dims', '');
+        crearFilaDimension('var1Dims', '');
+        crearFilaDimension('var2Dims', '');
+        crearFilaDimension('var2Dims', '');
+      }
+
+      function cargarEjemplo() {
+        document.getElementById('var1Name').value = 'Clima organizacional';
+        document.getElementById('var2Name').value = 'Desempeño laboral';
+        document.getElementById('lugarEstudio').value = 'Municipalidad Provincial de Huaraz';
+        document.getElementById('anioEstudio').value = '2026';
+
+        const c1 = document.getElementById('var1Dims');
+        c1.innerHTML = '';
+        ['Comunicación interna', 'Liderazgo directivo', 'Motivación y reconocimiento'].forEach(function (d) {
+          crearFilaDimension('var1Dims', d);
+        });
+
+        const c2 = document.getElementById('var2Dims');
+        c2.innerHTML = '';
+        ['Productividad laboral', 'Calidad de atención al ciudadano', 'Cumplimiento de metas'].forEach(function (d) {
+          crearFilaDimension('var2Dims', d);
+        });
+
+        generarProyecto();
+      }
+
+      function limpiarFormulario() {
+        document.getElementById('var1Name').value = '';
+        document.getElementById('var2Name').value = '';
+        document.getElementById('lugarEstudio').value = '';
+        document.getElementById('anioEstudio').value = '2026';
+        inicializarDimensiones();
+        document.getElementById('resultsSection').style.display = 'none';
+        document.getElementById('errorBox').style.display = 'none';
+      }
+
+      function formatoTitulo(texto) {
+        const textoLimpio = texto.trim().replace(/\s+/g, ' ');
+        return textoLimpio.charAt(0).toUpperCase() + textoLimpio.slice(1);
+      }
+
+      function aMinusculaInicial(texto) {
+        const t = texto.trim().replace(/\s+/g, ' ');
+        if (/^[A-ZÁÉÍÓÚÑ]{2,}$/.test(t.split(' ')[0])) {
+          return t;
+        }
+        return t.charAt(0).toLowerCase() + t.slice(1);
+      }
+
+      function obtenerDimensiones(containerId) {
+        const inputs = document.querySelectorAll('#' + containerId + ' .dim-input');
+        return Array.from(inputs)
+          .map(function (inp) { return inp.value.trim().replace(/\s+/g, ' '); })
+          .filter(function (val) { return val.length > 0; });
+      }
+
+      function mostrarError(msg) {
+        const box = document.getElementById('errorBox');
+        box.textContent = '⚠️ ' + msg;
+        box.style.display = 'block';
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      function generarProyecto() {
+        document.getElementById('errorBox').style.display = 'none';
+
+        const var1Raw = document.getElementById('var1Name').value.trim();
+        const var2Raw = document.getElementById('var2Name').value.trim();
+        const lugarRaw = document.getElementById('lugarEstudio').value.trim();
+        const anio = document.getElementById('anioEstudio').value.trim();
+        const verboGen = document.getElementById('verboGeneral').value;
+        const verboEsp = document.getElementById('verboEspecifico').value;
+
+        const dims1 = obtenerDimensiones('var1Dims');
+        const dims2 = obtenerDimensiones('var2Dims');
+
+        if (!var1Raw || !var2Raw || !lugarRaw || !anio) {
+          mostrarError('Por favor, completa el nombre de ambas variables, el lugar y el año de estudio.');
+          return;
+        }
+        if (dims1.length < 2 || dims2.length < 2) {
+          mostrarError('Cada variable debe tener como mínimo 2 dimensiones completas.');
+          return;
+        }
+
+        const v1Cap = formatoTitulo(var1Raw);
+        const v1Low = aMinusculaInicial(var1Raw);
+        const v2Low = aMinusculaInicial(var2Raw);
+        const lugar = formatoTitulo(lugarRaw);
+
+        const titulo = `${v1Cap} y ${v2Low} en ${lugar}, ${anio}`;
+        const objetivoGeneral = `${verboGen} la relación entre ${v1Low} y ${v2Low} en ${lugar}, ${anio}.`;
+
+        const objEspV1 = dims1.map(function (d) {
+          return `${verboEsp} la relación entre ${aMinusculaInicial(d)} y ${v2Low} en ${lugar}, ${anio}.`;
+        });
+        const objEspV2 = dims2.map(function (d) {
+          return `${verboEsp} la relación entre ${aMinusculaInicial(d)} y ${v1Low} en ${lugar}, ${anio}.`;
+        });
+
+        const preguntaGeneral = `¿Cuál es la relación entre ${v1Low} y ${v2Low} en ${lugar}, ${anio}?`;
+
+        const pregEspV1 = dims1.map(function (d) {
+          return `¿Cuál es la relación entre ${aMinusculaInicial(d)} y ${v2Low} en ${lugar}, ${anio}?`;
+        });
+        const pregEspV2 = dims2.map(function (d) {
+          return `¿Cuál es la relación entre ${aMinusculaInicial(d)} y ${v1Low} en ${lugar}, ${anio}?`;
+        });
+
+        const hipotesisGeneral = `Existe relación significativa entre ${v1Low} y ${v2Low} en ${lugar}, ${anio}.`;
+
+        const hipEspV1 = dims1.map(function (d) {
+          return `Existe relación significativa entre ${aMinusculaInicial(d)} y ${v2Low} en ${lugar}, ${anio}.`;
+        });
+        const hipEspV2 = dims2.map(function (d) {
+          return `Existe relación significativa entre ${aMinusculaInicial(d)} y ${v1Low} en ${lugar}, ${anio}.`;
+        });
+
+        datosGenerados = {
+          v1Cap: v1Cap,
+          v2Cap: formatoTitulo(var2Raw),
+          dims1: dims1,
+          dims2: dims2,
+          lugar: lugar,
+          anio: anio,
+          titulo: titulo,
+          objetivoGeneral: objetivoGeneral,
+          objEspV1: objEspV1,
+          objEspV2: objEspV2,
+          preguntaGeneral: preguntaGeneral,
+          pregEspV1: pregEspV1,
+          pregEspV2: pregEspV2,
+          hipotesisGeneral: hipotesisGeneral,
+          hipEspV1: hipEspV1,
+          hipEspV2: hipEspV2
+        };
+
+        renderizarResultados();
+      }
+
+      function construirListaAgrupadaHTML(listaV1, listaV2, v1Nombre, v2Nombre) {
+        let idx = 1;
+        let html = `<div class="sub-group-title">Dimensiones de ${v1Nombre} relacionadas con ${v2Nombre}:</div><ol start="${idx}">`;
+        listaV1.forEach(function (item) {
+          html += `<li>${item}</li>`;
+          idx++;
+        });
+        html += `</ol><div class="sub-group-title">Dimensiones de ${v2Nombre} relacionadas con ${v1Nombre}:</div><ol start="${idx}">`;
+        listaV2.forEach(function (item) {
+          html += `<li>${item}</li>`;
+        });
+        html += `</ol>`;
+        return html;
+      }
+
+      function renderizarResultados() {
+        const d = datosGenerados;
+        document.getElementById('outTitulo').textContent = d.titulo;
+        document.getElementById('outObjGen').textContent = d.objetivoGeneral;
+        document.getElementById('outObjEsp').innerHTML = construirListaAgrupadaHTML(d.objEspV1, d.objEspV2, d.v1Cap, d.v2Cap);
+        document.getElementById('outPregGen').textContent = d.preguntaGeneral;
+        document.getElementById('outPregEsp').innerHTML = construirListaAgrupadaHTML(d.pregEspV1, d.pregEspV2, d.v1Cap, d.v2Cap);
+        document.getElementById('outHipGen').textContent = d.hipotesisGeneral;
+        document.getElementById('outHipEsp').innerHTML = construirListaAgrupadaHTML(d.hipEspV1, d.hipEspV2, d.v1Cap, d.v2Cap);
+
+        const todasPregEsp = d.pregEspV1.concat(d.pregEspV2).map(function (p, i) { return `<li><strong>PE${i + 1}:</strong> ${p}</li>`; }).join('');
+        const todosObjEsp = d.objEspV1.concat(d.objEspV2).map(function (o, i) { return `<li><strong>OE${i + 1}:</strong> ${o}</li>`; }).join('');
+        const todasHipEsp = d.hipEspV1.concat(d.hipEspV2).map(function (h, i) { return `<li><strong>HE${i + 1}:</strong> ${h}</li>`; }).join('');
+
+        document.getElementById('matrixContent').innerHTML = `
+          <p style="margin-bottom:10px;"><strong>TÍTULO:</strong> ${d.titulo}</p>
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th style="width:24%;">Problemas</th>
+                <th style="width:24%;">Objetivos</th>
+                <th style="width:24%;">Hipótesis</th>
+                <th style="width:14%;">Variables y Dimensiones</th>
+                <th style="width:14%;">Metodología</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Problema General:</strong><br>${d.preguntaGeneral}<br><br>
+                  <strong>Problemas Específicos:</strong>
+                  <ul>${todasPregEsp}</ul>
+                </td>
+                <td>
+                  <strong>Objetivo General:</strong><br>${d.objetivoGeneral}<br><br>
+                  <strong>Objetivos Específicos:</strong>
+                  <ul>${todosObjEsp}</ul>
+                </td>
+                <td>
+                  <strong>Hipótesis General:</strong><br>${d.hipotesisGeneral}<br><br>
+                  <strong>Hipótesis Específicas:</strong>
+                  <ul>${todasHipEsp}</ul>
+                </td>
+                <td>
+                  <strong>Variable 1:</strong> ${d.v1Cap}
+                  <ul>${d.dims1.map(function (x) { return `<li>${x}</li>`; }).join('')}</ul>
+                  <br>
+                  <strong>Variable 2:</strong> ${d.v2Cap}
+                  <ul>${d.dims2.map(function (x) { return `<li>${x}</li>`; }).join('')}</ul>
+                </td>
+                <td>
+                  <strong>Tipo:</strong> Aplicada<br><br>
+                  <strong>Nivel:</strong> Correlacional<br><br>
+                  <strong>Diseño:</strong> No experimental, transversal<br><br>
+                  <strong>Ámbito:</strong> ${d.lugar} (${d.anio})
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        `;
+
+        const resSec = document.getElementById('resultsSection');
+        resSec.style.display = 'block';
+        resSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function mostrarToast(mensaje) {
+        const toast = document.getElementById('toast');
+        toast.textContent = mensaje;
+        toast.classList.add('show');
+        setTimeout(function () { toast.classList.remove('show'); }, 2600);
+      }
+
+      function copiarTextoPortapapeles(texto, mensajeExito) {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(texto).then(function () { mostrarToast(mensajeExito); });
+        } else {
+          const area = document.createElement('textarea');
+          area.value = texto;
+          document.body.appendChild(area);
+          area.select();
+          document.execCommand('copy');
+          document.body.removeChild(area);
+          mostrarToast(mensajeExito);
+        }
+      }
+
+      function descargarWord() {
+        if (!datosGenerados) return;
+        const d = datosGenerados;
+        const todosObj = d.objEspV1.concat(d.objEspV2).map(function (x) { return `<li>${x}</li>`; }).join('');
+        const todasPreg = d.pregEspV1.concat(d.pregEspV2).map(function (x) { return `<li>${x}</li>`; }).join('');
+        const todasHip = d.hipEspV1.concat(d.hipEspV2).map(function (x) { return `<li>${x}</li>`; }).join('');
+
+        const htmlWord = `
+          <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+          <head><meta charset='utf-8'><title>Proyecto Tesis UNASAM</title>
+          <style>
+            body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 1.5; margin: 2.5cm; }
+            h1 { font-size: 14pt; text-align: center; text-transform: uppercase; margin-bottom: 4pt; }
+            h2 { font-size: 12pt; text-align: center; font-weight: normal; margin-top: 0; margin-bottom: 18pt; }
+            h3 { font-size: 12pt; color: #1f3864; margin-top: 14pt; margin-bottom: 4pt; }
+            p, li { text-align: justify; }
+            table { width: 100%; border-collapse: collapse; margin-top: 14pt; font-size: 10pt; }
+            th, td { border: 1px solid #000; padding: 6pt; vertical-align: top; }
+            th { background-color: #d9e2f3; }
+          </style>
+          </head>
+          <body>
+            <h1>UNIVERSIDAD NACIONAL SANTIAGO ANTÚNEZ DE MAYOLO</h1>
+            <h2>Facultad de Administración y Turismo • Escuela Profesional de Administración</h2>
+
+            <h3>A) TÍTULO DE INVESTIGACIÓN</h3>
+            <p><strong>${d.titulo}</strong></p>
+
+            <h3>B) OBJETIVO GENERAL</h3>
+            <p>${d.objetivoGeneral}</p>
+
+            <h3>C) OBJETIVOS ESPECÍFICOS</h3>
+            <ol>${todosObj}</ol>
+
+            <h3>D) PREGUNTA GENERAL</h3>
+            <p>${d.preguntaGeneral}</p>
+
+            <h3>E) PREGUNTAS ESPECÍFICAS</h3>
+            <ol>${todasPreg}</ol>
+
+            <h3>F) HIPÓTESIS GENERAL</h3>
+            <p>${d.hipotesisGeneral}</p>
+
+            <h3>G) HIPÓTESIS ESPECÍFICAS</h3>
+            <ol>${todasHip}</ol>
+
+            <h3>MATRIZ DE CONSISTENCIA</h3>
+            <table>
+              <tr>
+                <th>Problemas</th>
+                <th>Objetivos</th>
+                <th>Hipótesis</th>
+                <th>Variables y Dimensiones</th>
+              </tr>
+              <tr>
+                <td><strong>General:</strong> ${d.preguntaGeneral}<br><br><strong>Específicos:</strong><ol>${todasPreg}</ol></td>
+                <td><strong>General:</strong> ${d.objetivoGeneral}<br><br><strong>Específicos:</strong><ol>${todosObj}</ol></td>
+                <td><strong>General:</strong> ${d.hipotesisGeneral}<br><br><strong>Específicas:</strong><ol>${todasHip}</ol></td>
+                <td>
+                  <strong>V1:</strong> ${d.v1Cap}<ul>${d.dims1.map(function (x) { return `<li>${x}</li>`; }).join('')}</ul>
+                  <strong>V2:</strong> ${d.v2Cap}<ul>${d.dims2.map(function (x) { return `<li>${x}</li>`; }).join('')}</ul>
+                </td>
+              </tr>
+            </table>
+          </body>
+          </html>
+        `;
+
+        const blob = new Blob(['\ufeff', htmlWord], { type: 'application/msword' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `Proyecto_Tesis_UNASAM_${d.anio}.doc`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        mostrarToast('📄 Archivo Word descargado correctamente');
+      }
+
+      // Asignación de eventos segura al cargar el DOM
+      document.addEventListener('DOMContentLoaded', function () {
+        inicializarDimensiones();
+
+        document.getElementById('btnAddVar1').addEventListener('click', function () {
+          crearFilaDimension('var1Dims', '');
+        });
+
+        document.getElementById('btnAddVar2').addEventListener('click', function () {
+          crearFilaDimension('var2Dims', '');
+        });
+
+        document.getElementById('btnEjemplo').addEventListener('click', cargarEjemplo);
+        document.getElementById('btnLimpiar').addEventListener('click', limpiarFormulario);
+        document.getElementById('btnGenerar').addEventListener('click', generarProyecto);
+
+        document.getElementById('btnCopiarTitulo').addEventListener('click', function () {
+          if (!datosGenerados) return;
+          copiarTextoPortapapeles(datosGenerados.titulo, '📌 Título copiado listo para pegar en Word');
+        });
+
+        document.getElementById('btnCopiarTodo').addEventListener('click', function () {
+          if (!datosGenerados) return;
+          const d = datosGenerados;
+          const todosObj = d.objEspV1.concat(d.objEspV2).map(function (x, i) { return `   ${i + 1}. ${x}`; }).join('\n');
+          const todasPreg = d.pregEspV1.concat(d.pregEspV2).map(function (x, i) { return `   ${i + 1}. ${x}`; }).join('\n');
+          const todasHip = d.hipEspV1.concat(d.hipEspV2).map(function (x, i) { return `   ${i + 1}. ${x}`; }).join('\n');
+
+          const textoCompleto = `ESCUELA PROFESIONAL DE ADMINISTRACIÓN - UNASAM\nESTRUCTURA METODOLÓGICA DE INVESTIGACIÓN CORRELACIONAL\n\nA) TÍTULO DE INVESTIGACIÓN:\n${d.titulo}\n\nB) OBJETIVO GENERAL:\n${d.objetivoGeneral}\n\nC) OBJETIVOS ESPECÍFICOS:\n${todosObj}\n\nD) PREGUNTA GENERAL:\n${d.preguntaGeneral}\n\nE) PREGUNTAS ESPECÍFICAS:\n${todasPreg}\n\nF) HIPÓTESIS GENERAL:\n${d.hipotesisGeneral}\n\nG) HIPÓTESIS ESPECÍFICAS:\n${todasHip}`;
+          copiarTextoPortapapeles(textoCompleto, '📋 Toda la estructura metodológica fue copiada');
+        });
+
+        document.getElementById('btnDescargarWord').addEventListener('click', descargarWord);
+        document.getElementById('btnDescargarWordMatrix').addEventListener('click', descargarWord);
+
+        document.getElementById('tabCards').addEventListener('click', function () {
+          document.getElementById('cardsView').style.display = 'flex';
+          document.getElementById('matrixView').style.display = 'none';
+          document.getElementById('tabCards').classList.add('active');
+          document.getElementById('tabMatrix').classList.remove('active');
+        });
+
+        document.getElementById('tabMatrix').addEventListener('click', function () {
+          document.getElementById('cardsView').style.display = 'none';
+          document.getElementById('matrixView').style.display = 'block';
+          document.getElementById('tabCards').classList.remove('active');
+          document.getElementById('tabMatrix').classList.add('active');
+        });
+
+        document.querySelectorAll('.btn-mini-copy').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const targetId = btn.getAttribute('data-copy');
+            const el = document.getElementById(targetId);
+            if (el) {
+              copiarTextoPortapapeles(el.innerText.trim(), '✅ Sección copiada al portapapeles');
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
